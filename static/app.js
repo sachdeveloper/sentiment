@@ -25,6 +25,13 @@ function handleColor(color) {
     const colorDivs = document.querySelectorAll('#color-boxes div');
     colorDivs.forEach(div => div.style.outline = 'none');
 
+    // Outline the selected color
+    const colorDiv = Array.from(colorDivs).find(div => div.style.backgroundColor === actualColor);
+    if (colorDiv) {
+        colorDiv.style.outline = '2px solid black';
+    }
+
+    // Convert color to RGB if it's green
     if (color === 'green') {
         actualColor = 'rgb(0, 255, 0)';
     }
@@ -34,13 +41,7 @@ function handleColor(color) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: `id=${userId}&color=${actualColor}`
     }).then(response => response.json()).then(data => {
-        if (data.success) {
-            // Outline the selected color
-            const colorDiv = Array.from(colorDivs).find(div => div.style.backgroundColor === actualColor);
-            if (colorDiv) {
-                colorDiv.style.outline = '2px solid black';
-            }
-        } else {
+        if (!data.success) {
             alert('There was an error setting the color.');
         }
     });

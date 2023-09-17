@@ -42,6 +42,15 @@
             padding: 10px;
             border-radius: 10px;
             overflow-y: auto; /* add a scrollbar for when there are many users */
+            display: flex; /* Turn the team containers into flex containers */
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items horizontally */
+            justify-content: center; /* Center items vertically */
+        }
+        #team-A h2, #team-B h2, #team-C h2, #team-D h2, #team-E h2 {
+            margin: 0; /* Remove margin to center vertically */
+            text-align: center; /* Ensure the text is centered */
+            margin-bottom: 10px; /* Optional: Add some space between title and list */
         }
         #clear-btn, #delete-all-btn {
             display: block;
@@ -63,7 +72,6 @@
             height: 40px;  /* Reduced from 50px */
             line-height: 40px;  /* Adjusted to match new height */
             margin: 5px;  /* Reduced from 10px */
-            line-height: 50px; /* to vertically center the text */
             text-align: center; /* to horizontally center the text */
             color: rgb(0, 0, 0); /* change the color of the text to white for readability */
             border-radius: 5px; /* optional, for rounded corners */

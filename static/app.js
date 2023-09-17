@@ -22,22 +22,25 @@ function handleColor(color) {
     var actualColor = color;
 
     // Clear previous selection
-    const colorDivs = document.querySelectorAll('#color-boxes div');
-    colorDivs.forEach(div => div.style.outline = 'none');
+    const colorDivs = document.querySelectorAll('#color-boxes .color-option');  // changed selector to directly select color-option
+    colorDivs.forEach(div => {
+        div.style.outline = 'none';  // Using outline to not affect layout.
+        div.style.border = '2px solid transparent';  // Resetting border back to transparent for all color options
+    });
 
     // Outline the selected color
     const colorDiv = Array.from(colorDivs).find(div => div.style.backgroundColor === actualColor);
     if (colorDiv) {
-        colorDiv.style.outline = '2px solid black';
+        colorDiv.style.border = '2px solid black';  // Setting border to black for selected color
     }
 
     // Convert color to RGB if it's green
     if (color === 'green') {
         actualColor = 'rgb(0, 255, 0)';
     } else if (color === 'light green') {
-        actualColor = 'rgb(142, 255, 142)';  // Replace with actual RGB values
+        actualColor = 'rgb(142, 255, 142)';
     } else if (color === 'light red') {
-        actualColor = 'rgb(254, 67, 67)';  // Replace with actual RGB values
+        actualColor = 'rgb(254, 67, 67)';
     }
 
     fetch('/color', {

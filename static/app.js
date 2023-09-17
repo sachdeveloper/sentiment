@@ -22,13 +22,15 @@ function handleColor(color) {
     var actualColor = color;
 
     // Clear previous selection
-    const colorDivs = document.querySelectorAll('#color-boxes div');
-    colorDivs.forEach(div => div.style.outline = 'none');
+    const colorDivs = document.querySelectorAll('.color-option');
+    colorDivs.forEach(div => {
+        div.classList.remove('selected'); // Remove the 'selected' class
+    });
 
-    // Outline the selected color
+    // Add the 'selected' class to the chosen color
     const colorDiv = Array.from(colorDivs).find(div => div.style.backgroundColor === actualColor);
     if (colorDiv) {
-        colorDiv.style.outline = '2px solid black';
+        colorDiv.classList.add('selected');
     }
 
     // Convert color to RGB if it's green

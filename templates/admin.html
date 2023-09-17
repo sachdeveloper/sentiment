@@ -29,19 +29,28 @@
         }
         .quadrants {
             display: grid;
-            grid-template-columns: repeat(5, 1fr); /* Divides the grid into 5 equal columns */
-            grid-template-rows: 1fr; /* Just one row for this layout */
-            height: 100vh; /* take up full height of the viewport */
-            gap: 20px; /* add a gap between the grids */
-            padding: 20px; /* padding around the edges */
+            grid-template-columns: repeat(5, 1fr);
+            height: calc(100vh - 140px); /* 100vh minus header and buttons space */
+            gap: 20px;
+            padding: 20px;
         }
-        
-        #team-A, #team-B, #team-C, #team-D, #team-E { /* Add #team-E */
+
+        #team-A, #team-B, #team-C, #team-D, #team-E {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
             background: white;
             color: #333;
             padding: 10px;
             border-radius: 10px;
-            overflow-y: auto; /* add a scrollbar for when there are many users */
+            overflow-y: auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 10px 0;
+            height: 50px;
+            line-height: 50px; /* To center the text vertically */
         }
         #clear-btn, #delete-all-btn {
             display: block;
@@ -98,7 +107,7 @@
             <h2>Stock Pitch</h2>
             <ul class="team-list"></ul>
         </div>
-        <div id="team-E"> <!-- Added fifth team "Group Case" -->
+        <div id="team-E">
             <h2>Group Case</h2>
             <ul class="team-list"></ul>
         </div>

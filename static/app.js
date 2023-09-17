@@ -58,7 +58,8 @@ function loadUsers() {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
     }).then(response => response.json()).then(data => {
-        for (const team of ['A', 'B', 'C', 'D']) {
+        // Add 'E' for "Group Case"
+        for (const team of ['A', 'B', 'C', 'D', 'E']) { 
             const userList = document.querySelector(`#team-${team} .team-list`);
             userList.innerHTML = ''; // clear out the old users
             for (const user of data.users.filter(u => u.team === team)) {
@@ -138,7 +139,7 @@ document.getElementById('delete-all-btn').addEventListener('click', function() {
 });
 
 
-if (document.getElementById('team-A') || document.getElementById('team-B') || document.getElementById('team-C') || document.getElementById('team-D')) {
+if (document.getElementById('team-A') || document.getElementById('team-B') || document.getElementById('team-C') || document.getElementById('team-D') || document.getElementById('team-E')) {
     loadUsers();
 }
 

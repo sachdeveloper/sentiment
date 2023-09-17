@@ -36,24 +36,28 @@
             padding: 20px; /* padding around the edges */
         }
         
-        #team-A, #team-B, #team-C, #team-D, #team-E { /* Add #team-E */
+        #team-A, #team-B, #team-C, #team-D, #team-E {
             background: white;
             color: #333;
             padding: 10px;
             border-radius: 10px;
-            overflow-y: auto; /* add a scrollbar for when there are many users */
+            overflow-y: auto; 
             display: flex; 
             flex-direction: column; 
-            align-items: flex-start; /* This ensures that the contents start from the left */
-            text-align: center; /* This centers the titles (h2) horizontally */
+            align-items: center; /* This centers the content horizontally */
         }
+
         .team-list {
             width: 100%; 
-            text-align: left; /* This aligns the list of name boxes to the left */
+            text-align: left; /* This will align the items (name boxes) to the left */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* This ensures that the list itself starts from the left */
         }
+
         #team-A h2, #team-B h2, #team-C h2, #team-D h2, #team-E h2 {
-            text-align: center;
-            margin: 0 0 10px 0;  /* This will remove the default margin from the top and bottom but adds a 10px margin at the bottom for spacing. */
+            text-align: center; /* Keep the titles centered */
+            margin: 0 0 10px 0;
         }
         #clear-btn, #delete-all-btn {
             display: block;

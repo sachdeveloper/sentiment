@@ -20,9 +20,12 @@
         .container {
             text-align: center;
             background: white;
-            padding: 50px;
+            padding: 70px 50px; /* Increased the top and bottom padding */
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            min-height: 700px; /* Minimum height to make sure all content fits */
+            max-width: 400px; /* Optionally limit the maximum width */
+            width: 90%; /* Use 90% of the viewport width, but not exceeding max-width */
         }
         img {
             margin-bottom: 30px;
@@ -120,10 +123,22 @@
             <h2 style="text-align: center;">Choose a color</h2>
             <div id="color-options" style="display: flex; justify-content: center; gap: 20px;">
                 <input type="hidden" id="user-id">
-                <div class="color-option" onclick="handleColor('rgb(0, 255, 0)')" style="background-color: rgb(0, 255, 0);"></div>
-                <div class="color-option" onclick="handleColor('rgb(255, 255, 0)')" style="background-color: rgb(255, 255, 0);"></div>
+                
+                <!-- Red -->
                 <div class="color-option" onclick="handleColor('rgb(255, 0, 0)')" style="background-color: rgb(255, 0, 0);"></div>
-            </div>
+                
+                <!-- Light Red (using rgb value for light red) -->
+                <div class="color-option" onclick="handleColor('rgb(255, 182, 193)')" style="background-color: rgb(255, 182, 193);"></div> 
+                
+                <!-- Yellow -->
+                <div class="color-option" onclick="handleColor('rgb(255, 255, 0)')" style="background-color: rgb(255, 255, 0);"></div>
+                
+                <!-- Light Green (using rgb value for light green) -->
+                <div class="color-option" onclick="handleColor('rgb(144, 238, 144)')" style="background-color: rgb(144, 238, 144);"></div> 
+            
+                <!-- Green -->
+                <div class="color-option" onclick="handleColor('rgb(0, 255, 0)')" style="background-color: rgb(0, 255, 0);"></div>
+            </div>            
         </div>                           
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>

@@ -34,6 +34,10 @@ function handleColor(color) {
     // Convert color to RGB if it's green
     if (color === 'green') {
         actualColor = 'rgb(0, 255, 0)';
+    } else if (color === 'light green') {
+        actualColor = 'rgb(144, 238, 144)';  // Replace with actual RGB values
+    } else if (color === 'light red') {
+        actualColor = 'rgb(255, 182, 193)';  // Replace with actual RGB values
     }
 
     fetch('/color', {

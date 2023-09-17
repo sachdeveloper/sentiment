@@ -44,12 +44,12 @@
             overflow-y: auto; /* add a scrollbar for when there are many users */
             display: flex; 
             flex-direction: column; 
-            align-items: center; /* Keeps the title centered horizontally */
-            justify-content: center; /* Keeps the title centered vertically */
+            align-items: flex-start; /* This ensures that the contents start from the left */
+            text-align: center; /* This centers the titles (h2) horizontally */
         }
         .team-list {
-            align-self: flex-start; /* Overrides the flexbox alignment for the list of names to be left-aligned */
-            width: 100%; /* Ensures the list takes up the full width so names aren't squished in the middle */
+            width: 100%; 
+            text-align: left; /* This aligns the list of name boxes to the left */
         }
         #team-A h2, #team-B h2, #team-C h2, #team-D h2, #team-E h2 {
             text-align: center;

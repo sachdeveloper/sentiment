@@ -29,13 +29,14 @@
         }
         .quadrants {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
+            grid-template-columns: repeat(5, 1fr); /* Divides the grid into 5 equal columns */
+            grid-template-rows: 1fr; /* Just one row for this layout */
             height: 100vh; /* take up full height of the viewport */
             gap: 20px; /* add a gap between the grids */
             padding: 20px; /* padding around the edges */
         }
-        #team-A, #team-B, #team-C, #team-D {
+        
+        #team-A, #team-B, #team-C, #team-D, #team-E { /* Add #team-E */
             background: white;
             color: #333;
             padding: 20px;
@@ -95,6 +96,10 @@
         </div>
         <div id="team-D">
             <h2>Stock Pitch</h2>
+            <ul class="team-list"></ul>
+        </div>
+        <div id="team-E"> <!-- Added fifth team "Group Case" -->
+            <h2>Group Case</h2>
             <ul class="team-list"></ul>
         </div>
     </div>

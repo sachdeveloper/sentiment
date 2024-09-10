@@ -1,5 +1,5 @@
 var socket = io.connect();
-var userId = localStorage.getItem('userId'); // Get userId from localStorage
+var userId = null;
 
 function handleSubmit() {
     var name = document.getElementById('name').value;
@@ -11,12 +11,12 @@ function handleSubmit() {
         body: `name=${name}&team=${team}`
     }).then(response => response.json()).then(data => {
         userId = data.id;
-        localStorage.setItem('userId', userId);  // Store userId in localStorage
         document.getElementById('input-form').style.display = 'none';
         document.getElementById('color-boxes').style.display = 'flex';
-        document.getElementById('current-color-container').style.display = 'block';
+        document.getElementById('current-color-container').style.display = 'block'; // Show current color selection
     });
 }
+
 
 function handleColor(color) {
     var actualColor = color;
@@ -34,6 +34,15 @@ function handleColor(color) {
         colorDiv.style.border = '2px solid black';  // Setting border to black for selected color
     }
 
+    // Convert color to RGB if it's green
+    if (color === 'green') {
+        actualColor = 'rgb(0, 255, 0)';
+    } else if (color === 'light green') {
+        actualColor = 'rgb(142, 255, 142)';
+    } else if (color === 'light red') {
+        actualColor = 'rgb(254, 67, 67)';
+    }
+
     fetch('/color', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -45,6 +54,7 @@ function handleColor(color) {
     });
 }
 
+
 function loadUsers() {
     let totalR = 0;
     let totalG = 0;
@@ -55,7 +65,8 @@ function loadUsers() {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
     }).then(response => response.json()).then(data => {
-        for (const team of ['A', 'B', 'C', 'D', 'E']) {
+        // Add 'E' for "Group Case"
+        for (const team of ['A', 'B', 'C', 'D', 'E']) { 
             const userList = document.querySelector(`#team-${team} .team-list`);
             userList.innerHTML = ''; // clear out the old users
             for (const user of data.users.filter(u => u.team === team)) {
@@ -65,7 +76,7 @@ function loadUsers() {
                 userName.className = 'user-color';
                 userName.style.backgroundColor = user.color;
 
-                // Add event listener for deleting a user
+                // Add event listener
                 userName.addEventListener('click', function() {
                     if (confirm(`Are you sure you want to delete ${user.name}?`)) {
                         fetch('/delete_user', {
@@ -95,27 +106,17 @@ function loadUsers() {
                 }
             }
         }
-
         // Set the average color
         if (count > 0) {
             const avgR = Math.round(totalR / count);
             const avgG = Math.round(totalG / count);
             const avgB = Math.round(totalB / count);
-            document.body.style.backgroundColor = `rgb(${avgR},${avgG},${avgB})`;
+            document.body.style.backgroundColor = `rgb(${avgR},${avgG},${avgB})`; // change here
         } else {
-            document.body.style.backgroundColor = '#007BFF';
+            document.body.style.backgroundColor = '#007BFF'; // set to default blue when no users
         }
     });
 }
-
-// Handle clearing the userId when the user is deleted by an admin
-socket.on('user_deleted', function(data) {
-    if (data.id === userId) {
-        alert('You have been removed by the admin.');
-        localStorage.removeItem('userId');  // Clear userId from localStorage
-        window.location.reload();  // Force a page reload to show the login form again
-    }
-});
 
 // A helper function to convert the rgb color string to an object with r, g, b properties
 function getRGB(color) {
@@ -127,14 +128,6 @@ function getRGB(color) {
     };
 }
 
-// When the page loads, check if userId exists in localStorage
-window.onload = function() {
-    if (userId) {
-        document.getElementById('input-form').style.display = 'none';
-        document.getElementById('color-boxes').style.display = 'flex';
-        document.getElementById('current-color-container').style.display = 'block';
-    }
-};
 
 document.getElementById('delete-all-btn').addEventListener('click', function() {
     if (confirm('Are you sure you want to delete all users?')) {
@@ -151,3 +144,47 @@ document.getElementById('delete-all-btn').addEventListener('click', function() {
         });
     }
 });
+
+
+if (document.getElementById('team-A') || document.getElementById('team-B') || document.getElementById('team-C') || document.getElementById('team-D') || document.getElementById('team-E')) {
+    loadUsers();
+}
+
+document.getElementById('clear-btn').addEventListener('click', function() {
+    fetch('/clear', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+    }).then(response => response.json()).then(data => {
+        if (data.success) {
+            loadUsers();  // refresh the user list after clearing
+            document.body.style.backgroundColor = '#007BFF'; // clear the average color
+            alert('All colors cleared successfully!');
+        } else {
+            alert('There was an error clearing the colors.');
+        }        
+    });
+});
+
+socket.on('color change', function (data) {
+    if (data.id === userId) {
+        // If the user's color has been cleared, update their current color selection
+        if (data.color === null || data.color === 'white') {
+            document.getElementById('current-color').style.backgroundColor = 'white';
+            document.getElementById('current-color-text').innerText = 'No color selected';
+        } else {
+            document.getElementById('current-color').style.backgroundColor = data.color;
+            document.getElementById('current-color-text').innerText = data.color;
+        }
+    }
+    if (document.getElementById('team-A') || document.getElementById('team-B') || document.getElementById('team-C') || document.getElementById('team-D')) {
+        loadUsers();
+    }
+});
+
+socket.on('clear color', function (data) {
+    if (data.id === userId) {
+        document.getElementById('current-color').style.backgroundColor = 'white';
+        document.getElementById('current-color-text').innerText = 'No color selected';
+    }
+});
+

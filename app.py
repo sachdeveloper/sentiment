@@ -63,7 +63,6 @@ def clear():
 def delete_user():
     user = User.query.get(request.form['id'])
     if user:
-        socketio.emit('user_deleted', {'id': user.id})  # Emit a socket event to notify the user
         db.session.delete(user)
         db.session.commit()
         return {'success': True}

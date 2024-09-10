@@ -16,16 +16,18 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            position: relative; /* Needed to position the footer */
         }
         .container {
             text-align: center;
             background: white;
-            padding: 40px 50px; /* Increased the top and bottom padding */
+            padding: 40px 50px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            min-height: 700px; /* Minimum height to make sure all content fits */
-            max-width: 400px; /* Optionally limit the maximum width */
-            width: 90%; /* Use 90% of the viewport width, but not exceeding max-width */
+            min-height: 700px;
+            max-width: 400px;
+            width: 90%;
+            display: none; /* Initially hidden */
         }
         img {
             margin-bottom: 30px;
@@ -96,14 +98,43 @@
             align-items: center;
             justify-content: center;
         }
+        /* Footer styling */
+        footer {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: white;
+            font-style: italic;
+        }
+        /* Overlay styling */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #007BFF;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            font-size: 48px;
+            font-weight: bold;
+            transition: opacity 0.5s ease;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+    <!-- Overlay Screen -->
+    <div id="overlay" onclick="hideOverlay()">Deliberate, Together</div>
+
+    <!-- Main Container -->
     <div class="container">
         <img src="https://i.imgur.com/ObVlsPp.png" alt="CHF" width="200">
         <div id="input-form">
             <h2>Fall 2024 Deliberations</h2>
-            <p style="text-align: center; font-style: italic;">Designed & Developed by Ajay Sachdev</p>
             <input id="name" type="text" placeholder="Your name">
             <div>
                 <input type="radio" id="teamA" name="team" value="A">
@@ -114,7 +145,6 @@
                 <label for="teamC">Technicals</label><br>
                 <input type="radio" id="teamD" name="team" value="D">
                 <label for="teamD">Stock Pitch</label><br>
-                <!-- Adding the new radio button for "Group Case" -->
                 <input type="radio" id="teamE" name="team" value="E">
                 <label for="teamE">Group Case</label><br>
             </div>
@@ -124,23 +154,29 @@
             <h2 style="text-align: center;">Choose a color</h2>
             <div id="color-options" style="display: flex; justify-content: center; gap: 20px;">
                 <input type="hidden" id="user-id">
-                
-                <!-- Red -->
                 <div class="color-option" onclick="handleColor('rgb(255, 0, 0)')" style="background-color: rgb(255, 0, 0);"></div>
-                
-                <!-- Light Red (adjusting RGB value to match handleColor) -->
                 <div class="color-option" onclick="handleColor('rgb(254, 67, 67)')" style="background-color: rgb(254, 67, 67);"></div> 
-                
-                <!-- Yellow -->
                 <div class="color-option" onclick="handleColor('rgb(255, 255, 0)')" style="background-color: rgb(255, 255, 0);"></div>
-                
-                <!-- Light Green (adjusting RGB value to match handleColor) -->
                 <div class="color-option" onclick="handleColor('rgb(142, 255, 142)')" style="background-color: rgb(142, 255, 142);"></div> 
-            
-                <!-- Green -->
                 <div class="color-option" onclick="handleColor('rgb(0, 255, 0)')" style="background-color: rgb(0, 255, 0);"></div>
             </div>            
-        </div>                           
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
+        </div>
+    </div>
+
+    <!-- Footer with attribution -->
+    <footer>
+        Designed & Developed by Ajay Sachdev
+    </footer>
+
+    <script>
+        function hideOverlay() {
+            const overlay = document.getElementById('overlay');
+            overlay.style.opacity = '0'; // Fade out the overlay
+            setTimeout(() => {
+                overlay.style.display = 'none'; // After fade out, hide overlay completely
+                document.querySelector('.container').style.display = 'block'; // Show the main content
+            }, 500); // Wait for the fade out transition to complete
+        }
+    </script>
 </body>
 </html>

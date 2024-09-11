@@ -1,3 +1,7 @@
+function hideOverlay() {
+    document.querySelector('.overlay').classList.add('hidden');
+}
+
 var socket = io.connect();
 var userId = null;
 

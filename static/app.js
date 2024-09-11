@@ -1,10 +1,6 @@
 var socket = io.connect();
 var userId = null;
 
-function hideOverlay() {
-    document.querySelector('.overlay').classList.add('hidden');
-}
-
 function handleSubmit() {
     var name = document.getElementById('name').value;
     var team = document.querySelector('input[name="team"]:checked').value;
@@ -191,4 +187,3 @@ socket.on('clear color', function (data) {
         document.getElementById('current-color-text').innerText = 'No color selected';
     }
 });
-

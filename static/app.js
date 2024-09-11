@@ -187,3 +187,4 @@ socket.on('clear color', function (data) {
         document.getElementById('current-color-text').innerText = 'No color selected';
     }
 });
+

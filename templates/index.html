@@ -125,7 +125,7 @@
             font-size: 36px;
             font-weight: 700;
             z-index: 9999;
-            animation: fadeOut 1s ease forwards;
+            animation: fadeOut 5s ease forwards;
         }
 
         /* Fade-out animation */
@@ -185,7 +185,7 @@
             loadingOverlay.style.opacity = '0';
             setTimeout(function() {
                 loadingOverlay.classList.add('hidden');
-            }, 1000); // Matches the fade-out duration (1 second)
+            }, 5000); // Matches the fade-out duration (1 second)
         }, 4000); // 4-second delay before fade-out starts
     </script>
     <script src="{{ url_for('static', filename='app.js') }}"></script>

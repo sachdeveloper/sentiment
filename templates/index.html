@@ -9,94 +9,53 @@
         body {
             font-family: 'Poppins', sans-serif;
             color: #333;
+            background: #007BFF;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden; /* Prevent scrolling when the overlay is active */
         }
-
-        /* Fullscreen overlay */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, #0000FF, #8A2BE2);
-            background-size: 200% 200%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 36px;
-            font-weight: 700;
-            z-index: 9999;
-            animation: gradientAnimation 5s ease infinite;
-            cursor: pointer;
-        }
-
-        /* Background animation for the overlay */
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Hidden state for overlay after click */
-        .hidden {
-            display: none;
-        }
-
-        /* Main container styling */
         .container {
             text-align: center;
             background: white;
-            padding: 40px 50px;
+            padding: 40px 50px; /* Increased the top and bottom padding */
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            min-height: 700px;
-            max-width: 400px;
-            width: 90%;
+            min-height: 700px; /* Minimum height to make sure all content fits */
+            max-width: 400px; /* Optionally limit the maximum width */
+            width: 90%; /* Use 90% of the viewport width, but not exceeding max-width */
         }
-
         img {
             margin-bottom: 30px;
         }
-
         h2 {
             font-size: 24px;
             font-weight: 700;
             color: #007BFF;
             margin-bottom: 20px;
         }
-
         input[type="text"], button, input[type="radio"] {
             padding: 10px 20px;
             margin: 10px 0;
             border: none;
             border-radius: 5px;
         }
-
         input[type="text"] {
             width: 100%;
             max-width: 300px;
             border: 1px solid #007BFF;
         }
-
         button {
             background: #007BFF;
             color: white;
             cursor: pointer;
             transition: background 0.3s ease;
         }
-
         button:hover {
             background: #0056b3;
         }
-
         #color-boxes {
             display: flex;
             flex-direction: column; 
@@ -104,7 +63,6 @@
             gap: 20px;
             margin-top: 20px;
         }
-
         .color-option {
             width: 50px;
             height: 50px;
@@ -113,13 +71,11 @@
             cursor: pointer;
             flex-shrink: 0;
         }
-
         #color-options {
             display: flex; 
             justify-content: center; 
             gap: 20px;
         }
-
         #current-color-container {
             display: flex;
             justify-content: center;
@@ -128,14 +84,12 @@
             flex-direction: column;
             margin-top: 20px;
         }
-
         #current-color {
             width: 50px;
             height: 50px;
             border: 1px solid #007BFF;
             border-radius: 50%;
         }
-
         #input-form {
             display: flex;
             flex-direction: column;
@@ -145,16 +99,10 @@
     </style>
 </head>
 <body>
-    <!-- Initial full-screen overlay -->
-    <div class="overlay" onclick="hideOverlay()">
-        Deliberate, Together
-    </div>
-
-    <!-- Main content -->
     <div class="container">
         <img src="https://i.imgur.com/ObVlsPp.png" alt="CHF" width="200">
         <div id="input-form">
-            <h2>FA'24 Deliberations</h2>
+            <h2>CHF Deliberations</h2>
             <input id="name" type="text" placeholder="Your name">
             <div>
                 <input type="radio" id="teamA" name="team" value="A">
@@ -165,6 +113,7 @@
                 <label for="teamC">Technicals</label><br>
                 <input type="radio" id="teamD" name="team" value="D">
                 <label for="teamD">Stock Pitch</label><br>
+                <!-- Adding the new radio button for "Group Case" -->
                 <input type="radio" id="teamE" name="team" value="E">
                 <label for="teamE">Group Case</label><br>
             </div>
@@ -175,21 +124,22 @@
             <div id="color-options" style="display: flex; justify-content: center; gap: 20px;">
                 <input type="hidden" id="user-id">
                 
-                <!-- Color options -->
+                <!-- Red -->
                 <div class="color-option" onclick="handleColor('rgb(255, 0, 0)')" style="background-color: rgb(255, 0, 0);"></div>
-                <div class="color-option" onclick="handleColor('rgb(254, 67, 67)')" style="background-color: rgb(254, 67, 67);"></div>
+                
+                <!-- Light Red (adjusting RGB value to match handleColor) -->
+                <div class="color-option" onclick="handleColor('rgb(254, 67, 67)')" style="background-color: rgb(254, 67, 67);"></div> 
+                
+                <!-- Yellow -->
                 <div class="color-option" onclick="handleColor('rgb(255, 255, 0)')" style="background-color: rgb(255, 255, 0);"></div>
-                <div class="color-option" onclick="handleColor('rgb(142, 255, 142)')" style="background-color: rgb(142, 255, 142);"></div>
+                
+                <!-- Light Green (adjusting RGB value to match handleColor) -->
+                <div class="color-option" onclick="handleColor('rgb(142, 255, 142)')" style="background-color: rgb(142, 255, 142);"></div> 
+            
+                <!-- Green -->
                 <div class="color-option" onclick="handleColor('rgb(0, 255, 0)')" style="background-color: rgb(0, 255, 0);"></div>
             </div>            
         </div>                           
-    </div>
-
-    <script>
-        // Function to hide the overlay and show the main content
-        function hideOverlay() {
-            document.querySelector('.overlay').classList.add('hidden');
-        }
-    </script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
 </html>

@@ -1,9 +1,9 @@
+var socket = io.connect();
+var userId = null;
+
 function hideOverlay() {
     document.querySelector('.overlay').classList.add('hidden');
 }
-
-var socket = io.connect();
-var userId = null;
 
 function handleSubmit() {
     var name = document.getElementById('name').value;

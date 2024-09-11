@@ -125,13 +125,8 @@
             font-size: 36px;
             font-weight: 700;
             z-index: 9999;
-            animation: fadeOut 5s ease forwards;
-        }
-
-        /* Fade-out animation */
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            100% { opacity: 0; }
+            opacity: 1;
+            transition: opacity 1s ease;
         }
 
         .hidden {
@@ -182,11 +177,11 @@
         // Function to hide the loading screen after 4 seconds
         setTimeout(function() {
             const loadingOverlay = document.getElementById('loading');
-            loadingOverlay.style.opacity = '0';
+            loadingOverlay.style.opacity = '0'; // Fade out
             setTimeout(function() {
-                loadingOverlay.classList.add('hidden');
-            }, 5000); // Matches the fade-out duration (1 second)
-        }, 4000); // 4-second delay before fade-out starts
+                loadingOverlay.classList.add('hidden'); // Hide the element
+            }, 1000); // 1-second duration for fade-out
+        }, 4000); // 4-second delay before the fade-out starts
     </script>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
